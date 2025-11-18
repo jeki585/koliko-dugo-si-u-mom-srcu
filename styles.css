@@ -1,0 +1,141 @@
+/* Background gradient & falling hearts */
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(150deg, #ffb6c1, #ffccd5, #ffe0eb);
+    animation: bg 15s infinite alternate ease-in-out;
+    position: relative;
+}
+
+@keyframes bg {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* Falling Hearts Animation */
+.hearts {
+    position: fixed; /* Fixes hearts to the screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Prevent hearts from blocking clicks */
+    z-index: 9999; /* Ensure hearts are on top of everything else */
+    display: block;
+
+}
+
+/* Heart style and animation */
+.heart {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #ff69b4; /* Pink heart color */
+    transform: rotate(45deg); /* Rotate the square to form a heart */
+    animation: fall 3s infinite ease-in-out; /* Fall animation */
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Create the heart shape using ::before and ::after */
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #ff69b4; /* Heart color */
+    border-radius: 50%; /* Make them circular */
+}
+
+.heart::before {
+    left: 0; /* Position the left circle */
+    top: -20px; /* Position it above */
+}
+
+.heart::after {
+    left: 20px; /* Position the right circle */
+    top: -20px; /* Position it above */
+}
+
+/* Heart Falling Animation */
+@keyframes fall {
+    0% {
+        top: -30px; /* Start just above the screen */
+        left: calc(100% * random()); /* Random position horizontally */
+        opacity: 1;
+    }
+    100% {
+        top: 100%; /* End at the bottom of the screen */
+        left: calc(100% * random()); /* Keep it random horizontally */
+        opacity: 0; /* Fade out at the bottom */
+}
+}
+/* Create random delays for hearts */
+.heart:nth-child(1) { animation-delay: 1.8s; }
+.heart:nth-child(2) { animation-delay: 1.5s; }
+.heart:nth-child(3) { animation-delay: 1.7s; }
+.heart:nth-child(4) { animation-delay: 1.6s; }
+.heart:nth-child(5) { animation-delay: 2s; }
+
+/* Optional: Make hearts appear at random positions horizontally */
+.hearts .heart {
+    left: calc(100% * random(1)); /* Random horizontal position */
+    animation-duration: 3s; /* Control falling speed */
+    animation-timing-function: ease-in-out;
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 30px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #ff69b4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.names {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #ff1493;
+}
+
+.timer {
+    font-size: 24px;
+    color: #444;
+    font-weight: bold;
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeIn 1.6s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.heartbeat {
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.03); }
+    40% { transform: scale(1); }
+    60% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
